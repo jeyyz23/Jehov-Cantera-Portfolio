@@ -34,10 +34,10 @@ html::-webkit-scrollbar {
   width: 0.8rem;
 }
 html::-webkit-scrollbar-track {
-  background: rgb(235, 202, 245);
+  background: rgb(102, 115, 171);
 }
 html::-webkit-scrollbar-thumb {
-  background: #420177;
+  background: #020662;
 }
 
 /* pre loader start */
@@ -70,7 +70,7 @@ header {
   justify-content: space-between;
   padding: 1.7rem 10%;
   height: 6.5rem;
-  background-color: #fff;
+  background-color: #ffffff;
   box-shadow: 0 1px 4px rgba(146, 161, 176, 0.3);
 }
 section {
@@ -84,7 +84,10 @@ section {
   text-align: center;
 }
 .heading span {
-  color: rgb(115, 3, 167);
+  color: #7886C7;
+  /* CODE FOR BLACK OUTLINE */
+    -webkit-text-stroke: 1px #000000; /* For WebKit browsers (Chrome, Safari) */
+    text-stroke: 1px #000000; /* Standard property */
 }
 header .logo {
   font-size: 1.9rem;
@@ -96,7 +99,7 @@ header .logo i {
   font-size: 2.2rem;
 }
 header .logo:hover {
-  color: #fc8c05;
+  color: #fccf05;
 }
 header .navbar ul {
   list-style: none;
@@ -212,10 +215,9 @@ header .navbar ul li a:hover {
   z-index: 1;
 }
 .home .image img {
-  width: 70%;
+  width: 80%;
   margin-left: 6rem;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 .home .image img:hover {
@@ -225,11 +227,19 @@ header .navbar ul li a:hover {
   font-size: 5rem;
   font-weight: 800;
   color: #002057;
+  
 }
 .home .content h2 span {
-  font-size: 5rem;
-  font-weight: 800;
-  color: #ff7b00;
+    font-size: 5rem;
+    font-weight: 800;
+    color: #ffd400; /* Original Yellow Color */
+
+    /* CODE FOR BLACK OUTLINE */
+    -webkit-text-stroke: 2px #000000; /* For WebKit browsers (Chrome, Safari) */
+    text-stroke: 2px #000000; /* Standard property */
+
+    /* You may need to add this property if the stroke covers the fill color */
+    -webkit-text-fill-color: #ffd400; 
 }
 .home .content p {
   font-size: 2.5rem;
@@ -310,13 +320,13 @@ header .navbar ul li a:hover {
   background-color: #0e0e0e;
 }
 .social-icons a.twitter:hover {
-  background-color: #00aced;
+  background-color: #1ced00;
 }
 .social-icons a.linkedin:hover {
   background-color: #007bb6;
 }
 .social-icons a.dev:hover {
-  background-color: #070707;
+  background-color: #7c1313;
 }
 .social-icons a.instagram:hover {
   background-color: #ee00da;
@@ -361,16 +371,16 @@ header .navbar ul li a:hover {
 }
 .about .row .image img {
   margin: 4rem;
-  width: 30rem;
+  width: 40rem;
   height: auto;
   border-radius: 5%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
-  mix-blend-mode: luminosity;
+  mix-blend-mode:normal;
   transition: 0.3s;
   cursor: pointer;
 }
 .about .row .image img:hover {
-  mix-blend-mode: normal;
+  mix-blend-mode:luminosity;
 }
 .about .row .content {
   flex: 1 1 45rem;
@@ -434,6 +444,16 @@ header .navbar ul li a:hover {
 .resumebtn .btn:hover i {
   transform: translateX(5px);
 }
+/* Make About section paragraphs justified */
+.about p,
+.about .content p {
+  text-align: justify;
+  text-justify: inter-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  line-height: 1.6; /* optional: improves readability */
+}
 /* about media queries starts*/
 @media screen and (max-width: 600px) {
   .about .row .image {
@@ -461,75 +481,171 @@ header .navbar ul li a:hover {
 /* skills section starts */
 .skills {
   min-height: 90vh;
-  background: linear-gradient(to bottom, #57059e, #4a00e0);
+  background: linear-gradient(to bottom, #7886C7, #2D336B);
 }
 .skills h2 {
-  color: #fff;
+  color: #ffffff;
+  /* CODE FOR BLACK OUTLINE */
+    -webkit-text-stroke: 1px #000000; /* For WebKit browsers (Chrome, Safari) */
+    text-stroke: 1px #000000; /* Standard property */
 }
 .skills .heading span {
   color: rgb(255, 230, 0);
+  /* CODE FOR BLACK OUTLINE */
+    -webkit-text-stroke: 1px #000000; /* For WebKit browsers (Chrome, Safari) */
+    text-stroke: 1px #000000; /* Standard property */
+
+    /* You may need to add this property if the stroke covers the fill color */
+    -webkit-text-fill-color: #ffd400; 
 }
-.skills .container {
-  background: rgba(0, 0, 22, 0.4);
-  color: #fff;
+.skills-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(0, 0, 22, 0.5);
   border-radius: 1rem;
-  padding: 2rem;
-  width: 90%;
-  margin: auto;
+  padding: 3rem 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Top Skill Cards */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.skill-card {
+  background: rgba(18, 16, 32, 0.9);
+  border-radius: 12px;
+  padding: 1.6rem 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #f4f4f4;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
+  height: 100%;
+}
+.skill-card {
+    background: rgba(18, 16, 32, 0.9);
+    border-radius: 12px;
+    padding: 1.6rem 1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #f4f4f4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.25s ease;
+    
+    /* --- NEW FLEXBOX PROPERTIES FOR CENTERING --- */
+    display: flex;             /* 1. Enable Flexbox */
+    justify-content: center;   /* 2. Center content horizontally */
+    align-items: center;       /* 3. Center content vertically */
+    height: 100%;              /* Ensure it takes full available height in the grid */
+    /* --------------------------------------------- */
+}
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+  background: rgb(90, 90, 166);
+}
+
+/* --- 1. SUITE WRAPPER (This enables the side-by-side layout) --- */
+.suite-section {
+    display: flex;       /* CRITICAL for side-by-side */
+    justify-content: center;
+    align-items: center; 
+    gap: 2rem;           
+    flex-wrap: wrap;     
+    margin: 2rem 0;
+}
+
+/* --- 2. INDIVIDUAL SUITE CARD (The black box around the logo) --- */
+/* --- CRITICAL: FIX WIDTH AND FLEX PROPERTIES IN .suite-card --- */
+.suite-card {
+    background: rgba(18, 16, 32, 0.95);
+    /* Minimal padding to give the image maximum space */
+    padding: 0.5rem; 
+    border-radius: 1rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    
+    flex-basis: 48%;
+    flex-grow: 1; 
+    
+    /* CRITICAL: Set a massive minimum height to force the box to be huge */
+    min-height: 400px; /* Try this large value to force a bigger size */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    transition: transform 0.25s ease;
+}
+
+.suite-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+  background: rgb(90, 90, 166);
+}
+.suite-card img {
+    /* Set width to nearly fill the container */
+    width: 95%; 
+    /* Remove any internal max-height limits */
+    max-height: 95%; 
+    height: auto; 
+    display: block; 
+}
+
+/* --- MEDIA QUERY CHECK (CRITICAL FOR SMALL SCREENS) --- */
+@media (max-width: 800px) {
+    .suite-card {
+        /* Forces cards to stack vertically and take full width on small screens */
+        width: 100%;
+        max-width: none; 
+        padding: 2.5rem;
+    }
+}
+
+/* Tool Pills (bottom logos) */
+.tool-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
   margin-top: 2rem;
 }
-.skills .container .row {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  flex-wrap: wrap;
-  gap: 1.8rem;
+
+.tool-pill {
+  background: rgba(18, 16, 32, 0.95);
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(2,6,32,0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.skills .container .bar {
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background: rgba(0, 0, 22, 0.9);
-  transition: 0.2s;
+
+.tool-pill:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(2,6,32,0.28);
 }
-.skills .container .bar:hover {
-  box-shadow: 0 8px 10px rgba(0, 2, 68, 0.8) !important;
-  background-color: rgba(0, 0, 0, 0.9) !important;
+
+.tool-pill img {
+  height: 80px;
+  object-fit: contain;
+  /* CRITICAL ADDITION: Softens the edges of the image itself */
+    border-radius: 35px; 
+    
+    /* Ensure no background interference */
+    background: transparent !important;
 }
-.skills .container .bar .info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.skills .container .bar .info i {
-  font-size: 4rem;
-}
-.skills .container .bar .info span {
-  font-size: 2rem;
-  font-weight: 500;
-  font-family: "Poppins";
-  margin-left: 0.5rem;
-}
-/* skills media queries starts*/
-@media screen and (max-width: 600px) {
-  .skills .container {
-    padding: 0;
-    margin: 0;
-  }
-  .skills .container .row {
-    grid-template-columns: repeat(2, 1fr);
-    margin: 1rem;
-    padding: 2rem 0.2rem 2rem 0.2rem;
-    gap: 1rem;
-  }
-  .skills .container {
-    margin-top: 5px;
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .suite-card {
     width: 100%;
   }
+  .skill-card {
+    font-size: 1.4rem;
+  }
 }
-/* skills media queries ends*/
 /* skills section ends */
 
 /* education section starts */
@@ -601,7 +717,7 @@ header .navbar ul li a:hover {
 }
 .education h4 {
   font-size: 2rem;
-  color: rgb(34, 109, 0);
+  color: rgb(50, 40, 120);
   text-align: left;
   margin: 1rem;
   font-family: "Nunito", sans-serif;
@@ -642,14 +758,23 @@ header .navbar ul li a:hover {
 /* work section starts */
 .work {
   /* background: #010124; */
-  background: linear-gradient(to bottom, #000031, #00002c);
+  background: linear-gradient(to bottom, #003161, #000B58);
 }
 .work h2 {
   color: #fff;
   padding: 1rem;
+  /* CODE FOR BLACK OUTLINE */
+    -webkit-text-stroke: 1px #0000008e; /* For WebKit browsers (Chrome, Safari) */
+    text-stroke: 1px #000000; /* Standard property */
 }
 .work .heading span {
   color: rgb(255, 230, 0);
+  /* CODE FOR BLACK OUTLINE */
+    -webkit-text-stroke: 1px #00000078; /* For WebKit browsers (Chrome, Safari) */
+    text-stroke: 1px #000000; /* Standard property */
+
+    /* You may need to add this property if the stroke covers the fill color */
+    -webkit-text-fill-color: #ffd400; 
 }
 .work .box-container {
   display: flex;
@@ -728,6 +853,14 @@ header .navbar ul li a:hover {
   display: flex;
   justify-content: center;
 }
+/* --- UNIVERSAL HIDE: TARGETS THE SECOND LINK IN ALL PROJECT BUTTON GROUPS --- */
+/* This rule is extremely high-priority and should override any conflicting styles */
+.work .box-container .box .content .desc .btns a:nth-child(2) {
+    /* Guarantees the element is hidden and takes up no space */
+    display: none !important; 
+    /* Ensures no visibility conflicts */
+    visibility: hidden !important; 
+}
 .work .viewall .btn {
   position: relative;
   line-height: 0;
@@ -775,6 +908,23 @@ header .navbar ul li a:hover {
   left: 50%;
   margin-left: -3px;
   z-index: -2;
+}
+/* --- NEW RULES TO HIDE TEXT FROM 3RD TIMELINE ITEM ONWARD --- */
+
+/* Targets the 3rd timeline box (container) and all following containers.
+   Then sets the text color inside the content to invisible. */
+.experience .container:nth-child(n+3) .content {
+    color: transparent; 
+    text-shadow: none !important; /* Removes any text shadow that might be visible */
+}
+
+/* IMPORTANT: Ensure all specific text elements (h2, h3, p) also inherit transparency. */
+.experience .container:nth-child(n+3) .content h2,
+.experience .container:nth-child(n+3) .content h3,
+.experience .container:nth-child(n+3) .content p,
+.experience .container:nth-child(n+3) .content .tag {
+    color: transparent !important;
+    text-shadow: none !important;
 }
 .experience .container {
   padding: 10px 40px;

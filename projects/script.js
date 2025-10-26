@@ -1,5 +1,76 @@
+// --- Global Functions (Placed outside document ready for scope) ---
+
+// Assuming you have a function to fetch project data (getProjects)
+function getProjects() {
+    // You must have a way to fetch projects.json data here.
+    // Example: Using jQuery's getJSON
+    $.getJSON('./projects.json', function (data) {
+        showProjects(data);
+    }).fail(function () {
+        console.error("Failed to load projects.json");
+    });
+}
+
+// Function to dynamically display project cards
+function showProjects(projects) {
+    let projectsHTML = '';
+    
+    projects.forEach(project => {
+        // Correct path for the thumbnail image: assets/images/projects/journal.png
+        // This is safe because project.image should be the file name (e.g., 'journal')
+        projectsHTML += `
+<div class="box tilt ${project.category}">
+  <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
+  <div class="content">
+    <div class="tag">
+      <h3>${project.name}</h3>
+    </div>
+    <div class="desc">
+      <p>${project.desc}</p>
+      <div class="btns">
+        <a href="${project.pdf_link ? '#' : project.links.view}" 
+           class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
+           data-pdf='${project.pdf_link || ''}' 
+           target="${project.pdf_link ? '' : '_blank'}">
+          <i class="fas fa-eye"></i> View
+        </a>
+        <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+      </div>
+    </div>
+  </div>
+</div>`;
+    });
+
+    // Assuming you have an element with the ID 'box-container' to hold the projects
+    $('.box-container').html(projectsHTML);
+
+    // Re-initialize Isotope filter and Vanilla Tilt after loading new content
+    // You should ensure this part is present in your original code if needed.
+    $('.box-container').isotope({
+        itemSelector: '.box',
+        layoutMode: 'fitRows'
+    });
+    VanillaTilt.init(document.querySelectorAll(".tilt"), {
+        max: 20,
+        speed: 500,
+        glare: true,
+        "max-glare": 0.5,
+    });
+}
+
+// Ensure you call getProjects to load your data when the page is ready
+// getProjects(); 
+// NOTE: Commented out here, as your original code structure might call this elsewhere.
+// If your projects don't load, uncomment the line above inside $(document).ready.
+
+
+// --- jQuery Document Ready (Main Event Listeners) ---
 $(document).ready(function () {
 
+    // Load projects on document ready if not already handled by your initial setup
+    getProjects(); 
+
+    // --- NAVBAR/SCROLL LISTENERS ---
     $('#menu').click(function () {
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
@@ -15,123 +86,56 @@ $(document).ready(function () {
             document.querySelector('#scroll-top').classList.remove('active');
         }
     });
-});
 
-document.addEventListener('visibilitychange',
-    function () {
-        if (document.visibilityState === "visible") {
-            document.title = "Projects | Portfolio Jigar Sable";
-            $("#favicon").attr("href", "/assets/images/favicon.png");
-        }
-        else {
-            document.title = "Come Back To Portfolio";
-            $("#favicon").attr("href", "/assets/images/favhand.png");
-        }
-    });
-
-
-// fetch projects start
-function getProjects() {
-    return fetch("projects.json")
-        .then(response => response.json())
-        .then(data => {
-            return data
-        });
-}
-
-
-function showProjects(projects) {
-    let projectsContainer = document.querySelector(".work .box-container");
-    let projectsHTML = "";
-    projects.forEach(project => {
-        projectsHTML += `
-        <div class="grid-item ${project.category}">
-        <div class="box tilt" style="width: 380px; margin: 1rem">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>`
-    });
-    projectsContainer.innerHTML = projectsHTML;
-
-    // vanilla tilt.js
-    // VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    //     max: 20,
-    // });
-    // // vanilla tilt.js  
-
-    // /* ===== SCROLL REVEAL ANIMATION ===== */
-    // const srtop = ScrollReveal({
-    //     origin: 'bottom',
-    //     distance: '80px',
-    //     duration: 1000,
-    //     reset: true
-    // });
-
-    // /* SCROLL PROJECTS */
-    // srtop.reveal('.work .box', { interval: 200 });
-
-    // isotope filter products
-    var $grid = $('.box-container').isotope({
-        itemSelector: '.grid-item',
-        layoutMode: 'fitRows',
-        masonry: {
-            columnWidth: 200
+    // --- PDF MODAL LISTENER (Reliable Delegation) ---
+    // This reliably handles clicks on dynamically loaded project cards
+    $(document).on('click', '.view-pdf-btn', function(e) {
+        // Prevent page reload immediately
+        e.preventDefault(); 
+        e.stopImmediatePropagation();
+        
+        // Get the PDF link from the data attribute
+        const pdfLink = $(this).data('pdf');
+        
+        if (pdfLink) {
+            // Find the iframe (ID: modalPDF) and set its source
+            $('#modalPDF').attr('src', pdfLink); 
+            // Find the modal (ID: projectModal) and show it
+            $('#projectModal').css('display', 'block'); 
         }
     });
 
-    // filter items on button click
-    $('.button-group').on('click', 'button', function () {
-        $('.button-group').find('.is-checked').removeClass('is-checked');
-        $(this).addClass('is-checked');
+    // Modal Close Function
+    const closePDFModal = function() {
+        $('#projectModal').css('display', 'none');
+        $('#modalPDF').attr('src', ''); // Clear src for security/performance
+    };
+
+    // 1. Close button (X) listener
+    $('.modal-close').on('click', closePDFModal);
+
+    // 2. Click outside modal listener
+    $(window).on('click', function(event) {
+        if ($(event.target).is('#projectModal')) {
+            closePDFModal();
+        }
+    });
+
+    // 3. Disable right-click specifically on the PDF iframe element
+    $(document).on('contextmenu', '#modalPDF', function() {
+        return false; 
+    });
+    // --- END PDF MODAL LISTENER ---
+
+    // --- ISOTOPE FILTER LOGIC ---
+    $('#filters').on('click', 'button', function() {
         var filterValue = $(this).attr('data-filter');
-        $grid.isotope({ filter: filterValue });
+        $('.box-container').isotope({ filter: filterValue });
+        
+        // Update active class for buttons
+        $('#filters button').removeClass('is-checked');
+        $(this).addClass('is-checked');
     });
-}
 
-getProjects().then(data => {
-    showProjects(data);
-})
-// fetch projects end
-
-// Start of Tawk.to Live Chat
-var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-(function () {
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/60df10bf7f4b000ac03ab6a8/1f9jlirg6';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-})();
-// End of Tawk.to Live Chat
-
-// disable developer mode
-document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-}
+});
+// END OF $(document).ready
