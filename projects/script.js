@@ -20,7 +20,7 @@ function showProjects(projects) {
         // This is safe because project.image should be the file name (e.g., 'journal')
         projectsHTML += `
 <div class="box tilt ${project.category}">
-  <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
+  <img draggable="false" src="assets/images/projects/${project.image}.png" alt="project" />
   <div class="content">
     <div class="tag">
       <h3>${project.name}</h3>
@@ -30,7 +30,7 @@ function showProjects(projects) {
       <div class="btns">
         <a href="${project.pdf_link ? '#' : project.links.view}" 
            class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
-           data-pdf='${project.pdf_link || ''}' 
+          data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
            target="${project.pdf_link ? '' : '_blank'}">
           <i class="fas fa-eye"></i> View
         </a>
