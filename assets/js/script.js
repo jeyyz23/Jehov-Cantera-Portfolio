@@ -41,7 +41,9 @@ $(document).ready(function () {
     $("#contact-form").submit(function (event) {
         emailjs.init("user_41EyusFfyjRe4bzgj");
 
-        emailjs.sendForm('service_jehov12', 'template_jehov12', '#contact-form')
+       // NEW CODE: Pass the actual form element reference instead of a selector
+       var form = document.getElementById('contact-form');
+       emailjs.sendForm('service_jehov12', 'template_jehov12', form)
             .then(function (response) {
                 console.log('SUCCESS!', response.status, response.text);
                 document.getElementById("contact-form").reset();
