@@ -53,6 +53,39 @@ $(document).ready(function () {
         event.preventDefault();
     });
     // <!-- emailjs to mail contact form data -->
+    // ... (code up to emailjs closing bracket) ...
+// // --- CRITICAL PDF MODAL CLICK LISTENER (DELEGATED) ---
+    // This reliably attaches the click event to buttons loaded dynamically by showProjects.
+    $(document).on('click', '.view-pdf-btn', function(e) {
+        e.preventDefault(); 
+        e.stopImmediatePropagation(); // Prevents multiple event firings
+        
+        const pdfLink = $(this).data('pdf');
+        
+        if (pdfLink) {
+            // NOTE: You must have an element with ID 'projectModal' and an iframe with ID 'modalPDF' in your index.html
+            $('#modalPDF').attr('src', pdfLink); 
+            $('#projectModal').addClass('active'); // Use active class for display (assuming your CSS uses this)
+        }
+    });
+
+    // --- MODAL CLOSE LOGIC ---
+    // This is needed to close the modal when clicking the 'X' or outside
+    const closePDFModal = function() {
+        $('#projectModal').removeClass('active'); 
+        $('#modalPDF').attr('src', ''); // Clear src
+    };
+
+    // If you have a close button with class 'modal-close'
+    $('.modal-close').on('click', closePDFModal);
+
+    // If you want to close it by clicking anywhere outside the content
+    $(window).on('click', function(event) {
+        if ($(event.target).is('#projectModal')) {
+            closePDFModal();
+        }
+    });
+    // --------------------------------------------------------
 
 });
 
@@ -84,8 +117,8 @@ async function fetchData(type = "skills") {
     type === "skills" ?
         response = await fetch("skills.json") 
         :
-        // FIX: Use the full GitHub Pages path format for project data
-        response = await fetch("/Jehov-Cantera-Portfolio/projects/projects.json")
+        // *** FINAL PATH FOR LIVE SERVER/LOCAL TESTING ***
+        response = await fetch("./projects/projects.json") 
         
     const data = await response.json();
     return data;
@@ -105,15 +138,26 @@ function showSkills(skills) {
     });
     skillsContainer.innerHTML = skillHTML;
 }
-
 function showProjects(projects) {
     let projectsContainer = document.querySelector("#work .box-container");
     let projectHTML = "";
-    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        // Correct path for the PDF link on GitHub Pages
-        const pdfLink = `/Jehov-Cantera-Portfolio/assets/pdf/${project.pdf_link}.pdf`;
 
-        // Determine if the link should be a PDF button or a regular link
+    // --- DYNAMIC PATH DEFINITION ---
+    // This logic ensures PDFs work both locally and on GitHub Pages.
+    const REPO_NAME = "Jehov-Cantera-Portfolio"; 
+    
+    // Checks if the full URL contains the repository name (indicating GitHub Pages deployment)
+    const pathPrefix = window.location.href.includes(REPO_NAME) 
+                       ? `/${REPO_NAME}/assets/pdf/` 
+                       : './assets/pdf/';
+    // --------------------------------
+
+    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
+        
+        // Generate the PDF link using the determined path prefix
+        const pdfLink = project.pdf_link ? `${pathPrefix}${project.pdf_link}.pdf` : null;
+
+        // Determine link behavior
         const linkHref = project.pdf_link ? '#' : project.links.view;
         const linkClass = project.pdf_link ? 'view-pdf-btn' : '';
         const linkTarget = project.pdf_link ? '' : '_blank';
@@ -121,35 +165,37 @@ function showProjects(projects) {
         
         projectHTML += `
         <div class="box tilt">
-      <img draggable="false" src="assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${linkHref}" class="btn ${linkClass}" ${dataPdf} target="${linkTarget}"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>`
+            <img draggable="false" src="./assets/images/projects/${project.image}.png" alt="project" />
+            <div class="content">
+                <div class="tag">
+                <h3>${project.name}</h3>
+                </div>
+                <div class="desc">
+                    <p>${project.desc}</p>
+                    <div class="btns">
+                        <a href="${linkHref}" class="btn ${linkClass}" ${dataPdf} target="${linkTarget}"><i class="fas fa-eye"></i> View</a>
+                        <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>`; // <--- The HTML template MUST close correctly here!
     });
-    // ... rest of the function continues below ...
-    projectsContainer.innerHTML = projectHTML;
 
-    // <!-- tilt js effect starts -->
+    projectsContainer.innerHTML = projectHTML; // <--- CRITICAL LINE TO DISPLAY PROJECTS
+
     VanillaTilt.init(document.querySelectorAll(".tilt"), {
         max: 15,
     });
-    // <!-- tilt js effect ends -->
-
-    
+    /* SCROLL PROJECTS */
+srtop.reveal('.work .box', { interval: 200 });
 }
+
 
 fetchData().then(data => {
     showSkills(data);
+});
+fetchData("projects").then(data => {
+    showProjects(data);
 });
 
 // pre loader start
@@ -230,8 +276,6 @@ srtop.reveal('.skills .container .bar', { delay: 400 });
 /* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });
 
-/* SCROLL PROJECTS */
-srtop.reveal('.work .box', { interval: 200 });
 
 /* SCROLL EXPERIENCE */
 srtop.reveal('.experience .timeline', { delay: 400 });
@@ -240,3 +284,8 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
+// --- ADD THIS BLOCK ---
+fetchData("projects").then(data => {
+    showProjects(data);
+});
+// ----------------------

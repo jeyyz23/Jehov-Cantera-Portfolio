@@ -45,10 +45,10 @@
     "image": "journal",
     "category": "mern",
     "links": {
-      "view": "/assets/pdf/journal.pdf", 
+      "view": "#", 
       "code": "https://github.com/jigar-sable/instagram-mern"
     },
-    "pdf_link": "/assets/pdf/journal.pdf"
+    "pdf_link": "journal"
   },
   {
     "name": "Accounting Worksheet 1",
@@ -56,9 +56,10 @@
     "image": "worksheet1",
     "category": "mern",
     "links": {
-      "view": "/assets/pdf/worksheet1.pdf",
+      "view": "#",
       "code": "https://github.com/jigar-sable/flipkart-mern"
-    }
+    },
+    "pdf_link": "worksheet1"
   },
   {
     "name": "Financial Statements 1",
@@ -66,9 +67,10 @@
     "image": "fs",
     "category": "mern",
     "links": {
-      "view": "/assets/pdf/fs.pdf",
+      "view": "#",
       "code": "https://github.com/jigar-sable/resumegen"
-    }
+    },
+    "pdf_link": "fs"
   },
   {
     "name": "Accounting Worksheet 2",
@@ -76,9 +78,10 @@
     "image": "worksheet2",
     "category": "mern",
     "links": {
-      "view": "/assets/pdf/worksheet2.pdf",
+      "view": "#",
       "code": "https://github.com/jigar-sable/React-Projects"
-    }
+    },
+    "pdf_link": "worksheet2"
   },
   {
     "name": "Financial Statements 2",
@@ -86,9 +89,10 @@
     "image": "fs",
     "category": "lamp",
     "links": {
-      "view": "/assets/pdf/fs2.pdf",
+      "view": "#",
       "code": "https://github.com/jigar-sable/Flipkart-Clone-PHP"
-    }
+    },
+    "pdf_link": "fs2"
   },
   {
     "name": "Data Entry & Item Analysis Report",
@@ -96,9 +100,10 @@
     "image": "item",
     "category": "basicweb",
     "links": {
-      "view": "/assets/pdf/item.pdf",
+      "view": "#",
       "code": "https://github.com/jigar-sable/JavaScript-Projects"
-    }
+    },
+    "pdf_link": "item"
   },
   {
     "name": "Web UI Clones",

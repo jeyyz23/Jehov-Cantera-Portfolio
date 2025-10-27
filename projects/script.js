@@ -42,8 +42,6 @@ function showProjects(projects) {
     projectsContainer.innerHTML = projectsHTML;
 }
 
-    // Assuming you have an element with the ID 'box-container' to hold the projects
-    $('.box-container').html(projectsHTML);
 
     // Re-initialize Isotope filter and Vanilla Tilt after loading new content
     // You should ensure this part is present in your original code if needed.

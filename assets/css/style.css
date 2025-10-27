@@ -1373,3 +1373,69 @@ form .button-area {
   top: calc(100% - 12rem);
 }
 /* scroll top ends */
+/* ================================================= */
+/* === PDF Modal Styles (CRITICAL FIX) ============= */
+/* ================================================= */
+
+/* 1. Base Modal Styles: Hides the modal initially and positions it to cover the screen */
+#projectModal {
+    display: none; /* CRITICAL: Hides the modal initially */
+    position: fixed; 
+    z-index: 99999; /* Super high z-index to ensure it sits on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95); /* Dark, semi-transparent background */
+    backdrop-filter: blur(5px); /* Optional: Adds a cool blur effect */
+}
+
+/* 2. Active State: Shows the modal when JS adds this class */
+#projectModal.active {
+    display: flex; /* CRITICAL: This line makes it visible */
+    justify-content: center; /* Centers the content box horizontally */
+    align-items: center; /* Centers the content box vertically */
+}
+
+/* 3. Modal Content (The container for the PDF iframe) */
+.modal-content {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+    width: 95%; /* Make it wide */
+    max-width: 1000px; /* Limit max size for large screens */
+    height: 90vh; /* Make it nearly full height */
+    box-shadow: 0 5px 25px rgba(255, 255, 255, 0.5);
+}
+
+/* 4. Iframe Styles (The actual PDF viewer) */
+#modalPDF {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* 5. Close Button Styles */
+.modal-close {
+    color: #ffd400; /* Yellow color */
+    background-color: #000;
+    position: absolute;
+    top: -20px; /* Position above the modal content */
+    right: -20px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 40px; /* Center the X */
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    z-index: 100000;
+}
+
+/* ================================================= */
+/* === END PDF Modal Styles ======================== */
+/* ================================================= */
