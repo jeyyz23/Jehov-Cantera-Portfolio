@@ -59,7 +59,7 @@ $(document).ready(function () {
 document.addEventListener('visibilitychange',
     function () {
         if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Jigar Sable";
+            document.title = "Portfolio | Jehov Cantera";
             $("#favicon").attr("href", "assets/images/favicon.png");
         }
         else {
@@ -151,17 +151,6 @@ function showProjects(projects) {
 fetchData().then(data => {
     showSkills(data);
 });
-
-fetchData("projects").then(data => {
-    showProjects(data);
-});
-
-// <!-- tilt js effect starts -->
-VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
-});
-// <!-- tilt js effect ends -->
-
 
 // pre loader start
 // function loader() {
