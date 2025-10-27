@@ -82,9 +82,11 @@ var typed = new Typed(".typing-text", {
 async function fetchData(type = "skills") {
     let response
     type === "skills" ?
-        response = await fetch("skills.json")
+        response = await fetch("skills.json") 
         :
-        response = await fetch("./projects/projects.json")
+        // FIX: Use the full GitHub Pages path format for project data
+        response = await fetch("/Portfolio-Website/projects/projects.json")
+        
     const data = await response.json();
     return data;
 }
@@ -249,7 +251,3 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
-
-/* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
-    // }
