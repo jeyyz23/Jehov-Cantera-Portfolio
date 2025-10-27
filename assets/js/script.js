@@ -268,11 +268,6 @@ srtop.reveal('.about .content p', { delay: 200 });
 srtop.reveal('.about .content .box-container', { delay: 200 });
 srtop.reveal('.about .content .resumebtn', { delay: 200 });
 
-
-/* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
-
 /* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });
 
@@ -288,4 +283,13 @@ srtop.reveal('.contact .container .form-group', { delay: 400 });
 fetchData("projects").then(data => {
     showProjects(data);
 });
-// ----------------------
+/* SCROLL SKILLS & TOOLS */
+
+// 1. Reveal the individual Skill Cards
+srtop.reveal('.skills-grid .skill-card', { interval: 75 }); 
+
+// 2. Reveal the entire Suite/Tools Card (Google/Office/QuickBooks, etc.)
+srtop.reveal('.skills .suite-card', { delay: 400 });
+
+// 3. Reveal the individual Tool Pills (Optional, if you want them to fade in separately)
+srtop.reveal('.tool-row .tool-pill', { interval: 50 });
