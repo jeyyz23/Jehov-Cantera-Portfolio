@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     // <!-- emailjs to mail contact form data -->
     $("#contact-form").submit(function (event) {
-        emailjs.init("user_41EyusFfyjRe4bzgj");
+        emailjs.init("41EyusFfyjRe4bzgj");
 
        // NEW CODE: Pass the actual form element reference instead of a selector
        var form = document.getElementById('contact-form');
@@ -127,7 +127,7 @@ async function fetchData(type = "skills") {
 }
 
 function showSkills(skills) {
-    let skillsContainer = document.getElementById("skillsContainer");
+    let skillsContainer = document.getElementById("skillsGridContainer");
     let skillHTML = "";
     skills.forEach(skill => {
         skillHTML += `
