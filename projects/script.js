@@ -1,6 +1,6 @@
 // --- Global Functions (Placed outside document ready for scope) ---
 
-/function getProjects() {
+function getProjects() {
     // FIX: Use the full GitHub Pages path format with the new repo name
     $.getJSON('/Jehov-Cantera-Portfolio/projects/projects.json', function (data) {
         showProjects(data);
