@@ -191,7 +191,6 @@ function showProjects(projects) {
     /* SCROLL PROJECTS */
 srtop.reveal('.work .box', { interval: 200 });
 }
-
 fetchData("projects").then(data => {
     showProjects(data);
 });
