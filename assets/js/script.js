@@ -104,38 +104,38 @@ function showSkills(skills) {
     skillsContainer.innerHTML = skillHTML;
 }
 
-/// Function to dynamically display project cards
 function showProjects(projects) {
     let projectsContainer = document.querySelector("#work .box-container");
-    let projectsHTML = '';
-    
-    // Filter out 'android' category and slice the first 10 projects
+    let projectHTML = "";
     projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        projectsHTML += `
-<div class="box tilt ${project.category}">
-  <img draggable="false" src="assets/images/projects/${project.image}.png" alt="project" />
-  <div class="content">
-    <div class="tag">
-      <h3>${project.name}</h3>
-    </div>
-    <div class="desc">
-      <p>${project.desc}</p>
-      <div class="btns">
-        <a href="${project.pdf_link ? '#' : project.links.view}" 
-           class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
-           data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
-           target="${project.pdf_link ? '' : '_blank'}">
-          <i class="fas fa-eye"></i> View
-        </a>
-        <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+        // Correct path for the PDF link on GitHub Pages
+        const pdfLink = `/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf`;
+
+        // Determine if the link should be a PDF button or a regular link
+        const linkHref = project.pdf_link ? '#' : project.links.view;
+        const linkClass = project.pdf_link ? 'view-pdf-btn' : '';
+        const linkTarget = project.pdf_link ? '' : '_blank';
+        const dataPdf = project.pdf_link ? `data-pdf='${pdfLink}'` : '';
+        
+        projectHTML += `
+        <div class="box tilt">
+      <img draggable="false" src="assets/images/projects/${project.image}.png" alt="project" />
+      <div class="content">
+        <div class="tag">
+        <h3>${project.name}</h3>
+        </div>
+        <div class="desc">
+          <p>${project.desc}</p>
+          <div class="btns">
+            <a href="${linkHref}" class="btn ${linkClass}" ${dataPdf} target="${linkTarget}"><i class="fas fa-eye"></i> View</a>
+            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>`;
+    </div>`
     });
-    // Add the HTML to the container (assuming this line is outside the forEach, but you should verify)
-    projectsContainer.innerHTML = projectsHTML;
-}
+    // ... rest of the function continues below ...
+    projectsContainer.innerHTML = projectHTML;
 
     // <!-- tilt js effect starts -->
     VanillaTilt.init(document.querySelectorAll(".tilt"), {
@@ -143,17 +143,8 @@ function showProjects(projects) {
     });
     // <!-- tilt js effect ends -->
 
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
-
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
-
+    
+}
 
 fetchData().then(data => {
     showSkills(data);
@@ -212,6 +203,13 @@ document.onkeydown = function (e) {
 // // End of Tawk.to Live Chat
 
 
+/* ===== SCROLL REVEAL ANIMATION ===== */
+const srtop = ScrollReveal({
+    origin: 'top',
+    distance: '80px',
+    duration: 1000,
+    reset: true
+});
 
 /* SCROLL HOME */
 srtop.reveal('.home .content h3', { delay: 200 });
@@ -251,3 +249,7 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
+
+/* SCROLL PROJECTS */
+    srtop.reveal('.work .box', { interval: 200 });
+    // }
