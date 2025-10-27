@@ -104,28 +104,40 @@ function showSkills(skills) {
     skillsContainer.innerHTML = skillHTML;
 }
 
+/// Function to dynamically display project cards
 function showProjects(projects) {
     let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
+    let projectsHTML = '';
+    
+    // Filter out 'android' category and slice the first 10 projects
     projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        projectHTML += `
-        <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
+        projectsHTML += `
+<div class="box tilt ${project.category}">
+  <img draggable="false" src="assets/images/projects/${project.image}.png" alt="project" />
+  <div class="content">
+    <div class="tag">
+      <h3>${project.name}</h3>
+    </div>
+    <div class="desc">
+      <p>${project.desc}</p>
+      <div class="btns">
+        <a href="${project.pdf_link ? '#' : project.links.view}" 
+           class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
+           
+           data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
+           
+           target="${project.pdf_link ? '' : '_blank'}">
+          <i class="fas fa-eye"></i> View
+        </a>
+        <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
       </div>
-    </div>`
+    </div>
+  </div>
+</div>`;
     });
-    projectsContainer.innerHTML = projectHTML;
+    // Add the HTML to the container (assuming this line is outside the forEach, but you should verify)
+    projectsContainer.innerHTML = projectsHTML;
+}
 
     // <!-- tilt js effect starts -->
     VanillaTilt.init(document.querySelectorAll(".tilt"), {
@@ -144,7 +156,6 @@ function showProjects(projects) {
     /* SCROLL PROJECTS */
     srtop.reveal('.work .box', { interval: 200 });
 
-}
 
 fetchData().then(data => {
     showSkills(data);
