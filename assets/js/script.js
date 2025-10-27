@@ -85,7 +85,7 @@ async function fetchData(type = "skills") {
         response = await fetch("skills.json") 
         :
         // FIX: Use the full GitHub Pages path format for project data
-        response = await fetch("/Portfolio-Website/projects/projects.json")
+        response = await fetch("/Jehov-Cantera-Portfolio/projects/projects.json")
         
     const data = await response.json();
     return data;
@@ -111,7 +111,7 @@ function showProjects(projects) {
     let projectHTML = "";
     projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
         // Correct path for the PDF link on GitHub Pages
-        const pdfLink = `/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf`;
+        const pdfLink = `/Jehov-Cantera-Portfolio/assets/pdf/${project.pdf_link}.pdf`;
 
         // Determine if the link should be a PDF button or a regular link
         const linkHref = project.pdf_link ? '#' : project.links.view;
