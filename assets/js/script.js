@@ -184,7 +184,8 @@ function showProjects(projects) {
     });
 
     projectsContainer.innerHTML = projectHTML; // <--- CRITICAL LINE TO DISPLAY PROJECTS
-
+// Global check for touch devices
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     VanillaTilt.init(document.querySelectorAll(".tilt"), {
         max: 15,
     });

@@ -49,12 +49,12 @@ function showProjects(projects) {
         itemSelector: '.box',
         layoutMode: 'fitRows'
     });
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
+    if (!isTouchDevice) {VanillaTilt.init(document.querySelectorAll(".tilt"), {
         max: 20,
         speed: 500,
         glare: true,
         "max-glare": 0.5,
-    });
+    });}
 
 // Ensure you call getProjects to load your data when the page is ready
 // getProjects(); 
