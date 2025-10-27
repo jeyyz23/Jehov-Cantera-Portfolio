@@ -45,7 +45,7 @@
     "image": "journal",
     "category": "mern",
     "links": {
-      "view": "/Portfolio-Website/assets/pdf/journal.pdf", 
+      "view": "/assets/pdf/journal.pdf", 
       "code": "https://github.com/jigar-sable/instagram-mern"
     },
     "pdf_link": "/assets/pdf/journal.pdf"
