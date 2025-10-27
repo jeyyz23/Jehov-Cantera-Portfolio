@@ -10,4 +10,4 @@ Portfolio website built using HTML5, CSS3, JavaScript, and jQuery.
 
 
 This portfolio is a modification of a free portfolio template.
-* **Developer:**Jigar Sable
+                   Developer:Jigar Sable
