@@ -11,13 +11,13 @@ function getProjects() {
     });
 }
 
-// Function to dynamically display project cards
+/// Function to dynamically display project cards
 function showProjects(projects) {
+    let projectsContainer = document.querySelector("#work .box-container");
     let projectsHTML = '';
     
-    projects.forEach(project => {
-        // Correct path for the thumbnail image: assets/images/projects/journal.png
-        // This is safe because project.image should be the file name (e.g., 'journal')
+    // Filter out 'android' category and slice the first 10 projects
+    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
         projectsHTML += `
 <div class="box tilt ${project.category}">
   <img draggable="false" src="assets/images/projects/${project.image}.png" alt="project" />
@@ -30,7 +30,9 @@ function showProjects(projects) {
       <div class="btns">
         <a href="${project.pdf_link ? '#' : project.links.view}" 
            class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
-          data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
+           
+           data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
+           
            target="${project.pdf_link ? '' : '_blank'}">
           <i class="fas fa-eye"></i> View
         </a>
@@ -40,6 +42,9 @@ function showProjects(projects) {
   </div>
 </div>`;
     });
+    // Add the HTML to the container (assuming this line is outside the forEach, but you should verify)
+    projectsContainer.innerHTML = projectsHTML;
+}
 
     // Assuming you have an element with the ID 'box-container' to hold the projects
     $('.box-container').html(projectsHTML);
@@ -56,7 +61,6 @@ function showProjects(projects) {
         glare: true,
         "max-glare": 0.5,
     });
-}
 
 // Ensure you call getProjects to load your data when the page is ready
 // getProjects(); 
