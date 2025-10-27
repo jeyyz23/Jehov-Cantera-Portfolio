@@ -192,10 +192,6 @@ function showProjects(projects) {
 srtop.reveal('.work .box', { interval: 200 });
 }
 
-
-fetchData().then(data => {
-    showSkills(data);
-});
 fetchData("projects").then(data => {
     showProjects(data);
 });
