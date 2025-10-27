@@ -1,10 +1,8 @@
 // --- Global Functions (Placed outside document ready for scope) ---
 
-// Assuming you have a function to fetch project data (getProjects)
-function getProjects() {
-    // You must have a way to fetch projects.json data here.
-    // Example: Using jQuery's getJSON
-    $.getJSON('./projects.json', function (data) {
+/function getProjects() {
+    // FIX: Use the full GitHub Pages path format with the new repo name
+    $.getJSON('/Jehov-Cantera-Portfolio/projects/projects.json', function (data) {
         showProjects(data);
     }).fail(function () {
         console.error("Failed to load projects.json");
@@ -30,9 +28,7 @@ function showProjects(projects) {
       <div class="btns">
         <a href="${project.pdf_link ? '#' : project.links.view}" 
            class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
-           
-           data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
-           
+           data-pdf='/Jehov-Cantera-Portfolio/assets/pdf/${project.pdf_link}.pdf'
            target="${project.pdf_link ? '' : '_blank'}">
           <i class="fas fa-eye"></i> View
         </a>
