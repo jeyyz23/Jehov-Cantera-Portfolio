@@ -123,9 +123,7 @@ function showProjects(projects) {
       <div class="btns">
         <a href="${project.pdf_link ? '#' : project.links.view}" 
            class="btn ${project.pdf_link ? 'view-pdf-btn' : ''}" 
-           
            data-pdf='/Portfolio-Website/assets/pdf/${project.pdf_link}.pdf'
-           
            target="${project.pdf_link ? '' : '_blank'}">
           <i class="fas fa-eye"></i> View
         </a>
@@ -214,13 +212,6 @@ document.onkeydown = function (e) {
 // // End of Tawk.to Live Chat
 
 
-/* ===== SCROLL REVEAL ANIMATION ===== */
-const srtop = ScrollReveal({
-    origin: 'top',
-    distance: '80px',
-    duration: 1000,
-    reset: true
-});
 
 /* SCROLL HOME */
 srtop.reveal('.home .content h3', { delay: 200 });
